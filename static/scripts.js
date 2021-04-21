@@ -1,22 +1,22 @@
-// store cards
+
 const cards = document.querySelectorAll('.memory-card');
 const startButton = document.getElementById('start-button');
 const resetButton = document.getElementById('reset-button');
 const saveButton = document.getElementById('save-button');
 const minDisplay = document.getElementById('minutes');
 const secDisplay = document.getElementById('seconds');
+//const secInput = document.getElementById('sec-input');
 
 let hasFlippedCard = false;
 let firstCard, secondCard;
 let lockBoard = true;
 var timer = null;
 
-minCount = 0;
-secCount = 0;
-cardsQty = 24;
-solved = 0;
-
-
+minCount = 0;       // minute counter
+secCount = 0;       // seconds counter
+secTimer = 0;       // total seconds timer
+cardsQty = 24;      // total cards
+solved = 0;         // cards solved counter
 
 
 // MEMORY GAME FUNCTIONS
@@ -121,10 +121,11 @@ function startTimer() {
     cards.forEach(card => card.addEventListener('click', flipCard));
     timer = setInterval(function (){
             secCount++;
+            secTimer++;
         if (secCount === 60) {
             minCount++;
-            minDisplay.textContent = minCount;
             secCount = 0;
+            minDisplay.textContent = minCount;
             secDisplay.textContent = secCount;
         } else {
             secDisplay.textContent = secCount;
@@ -141,14 +142,36 @@ function resetTimer() {
     solved = 0;
     minCount = 0;
     secCount = 0;
+    secTimer = 0;
     minDisplay.textContent = minCount;
     secDisplay.textContent = secCount;
+    //secInput.textContent = secTimer;
     startButton.disabled = false;
     lockBoard = true;
     cards.forEach(card => {
         if (card.classList.contains('flip')) {
             card.classList.toggle('flip');
         }
+    });
+}
+
+
+function submit_entry() {
+    const name = document.getElementById('name-input');
+    const entry = {
+        name: name.value,
+        time: secTimer
+    };
+    console.log(entry);
+
+    fetch('/save', {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(entry),
+        cache: "no-cache",
+        headers: new Headers ({
+            "content-type": "application/json"
+        })
     });
 }
 
