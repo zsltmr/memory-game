@@ -7,9 +7,9 @@
     /* margin is not relevant here */
 }
 
-.body {
+.page-body {
     height: 75vh;  /* vh: viewport (visible area of the screen) height */
-    background: #35455d;
+    background: #555251;
 }
 
 .data-table {
@@ -20,29 +20,34 @@
 
 .display {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     place-items: start center;
-    width: min-content;
+    width: 16rem;
     gap: 10px;
     margin: 0.5rem auto 0.5rem auto;
     border-radius: 0.5rem;
-    border: 1px solid #bfd1df;
+    border: 1px solid #d4d4d3;
     padding: 0.5rem 1rem 0.5rem 1rem;
-    color: #bfd1df;
+    color: #e3e3e6;
 }
 
 .game-title {
     margin-top: 0.5rem;
-    color: #bfd1df
+    color: #e3e3e6;
 }
 
-.name-input {
+.trial {
+    background: green;
+    border: 1px solid #bfd1df;
+    margin: 1px;
+}
+#name-input {
     margin-bottom: 0.5rem;
     width: 18rem;
 }
 
 .btn {
-    width: 6rem;
+    width: 7rem;
     margin-bottom: 0.5rem;
     background: transparent;
     color: #222;
@@ -53,6 +58,12 @@
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
+
+.scoreboard {
+    background: yellow;
+    text: white;
+}
+
 
 #double-hidden {
     color: #35455d;
@@ -68,7 +79,7 @@
 }
 
 .memory-card {
-    width: calc(25% - 6px);
+    width: calc(20% - 6px);
     height: calc(17% - 6px);
     position: relative;
     margin: 3px;

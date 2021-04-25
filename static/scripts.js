@@ -5,6 +5,7 @@ const resetButton = document.getElementById('reset-button');
 const saveButton = document.getElementById('save-button');
 const minDisplay = document.getElementById('minutes');
 const secDisplay = document.getElementById('seconds');
+const milliDisplay = document.getElementById('milliseconds');
 //const secInput = document.getElementById('sec-input');
 
 let hasFlippedCard = false;
@@ -14,8 +15,9 @@ var timer = null;
 
 minCount = 0;       // minute counter
 secCount = 0;       // seconds counter
-secTimer = 0;       // total seconds timer
-cardsQty = 24;      // total cards
+milliCount = 0;     // milliseconds counter
+milliTimer = 0;     // total milliseconds timer
+cardsQty = 30;      // total cards
 solved = 0;         // cards solved counter
 
 
@@ -86,7 +88,7 @@ function unflipCards() {
         firstCard.classList.remove('flip');
         secondCard.classList.remove('flip');
         resetBoard();
-    }, 1000);
+    }, 750);
 }
 
 
@@ -120,21 +122,52 @@ function startTimer() {
     shuffle();
     cards.forEach(card => card.addEventListener('click', flipCard));
     timer = setInterval(function (){
+            milliCount++;
+            milliTimer++;
+        if (milliCount === 100) {
             secCount++;
-            secTimer++;
-        if (secCount === 60) {
-            minCount++;
-            secCount = 0;
-            minDisplay.textContent = minCount;
+            milliCount = 0;
+            milliDisplay.textContent = milliCount;
             secDisplay.textContent = secCount;
+            if (secCount === 60) {
+                minCount++;
+                secCount = 0;
+                minDisplay.textContent = minCount;
+                secDisplay.textContent = secCount;
+            } else {
+                secDisplay.textContent = secCount;
+            }
         } else {
-            secDisplay.textContent = secCount;
+            milliDisplay.textContent = milliCount;
         }
-    }, 1000)
+    }, 10)
     lockBoard = false;
     startButton.disabled = true;
     saveButton.disabled = true;
 }
+
+
+//// Start timer
+//function startTimer() {
+//    shuffle();
+//    cards.forEach(card => card.addEventListener('click', flipCard));
+//    timer = setInterval(function (){
+//            secCount++;
+//            secTimer++;
+//        if (secCount === 60) {
+//            minCount++;
+//            secCount = 0;
+//            minDisplay.textContent = minCount;
+//            secDisplay.textContent = secCount;
+//        } else {
+//            secDisplay.textContent = secCount;
+//        }
+//    }, 1000)
+//    lockBoard = false;
+//    startButton.disabled = true;
+//    saveButton.disabled = true;
+//}
+
 
 // Reset timer
 function resetTimer() {
@@ -142,9 +175,11 @@ function resetTimer() {
     solved = 0;
     minCount = 0;
     secCount = 0;
-    secTimer = 0;
+    milliCount = 0;
+    milliTimer = 0;
     minDisplay.textContent = minCount;
     secDisplay.textContent = secCount;
+    milliDisplay.textContent = milliCount;
     //secInput.textContent = secTimer;
     startButton.disabled = false;
     lockBoard = true;
@@ -160,7 +195,7 @@ function submit_entry() {
     const name = document.getElementById('name-input');
     const entry = {
         name: name.value,
-        time: secTimer
+        time: milliTimer,
     };
     console.log(entry);
 
