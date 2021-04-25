@@ -25,7 +25,7 @@ solved = 0;         // cards solved counter
 
 
 function flipCard() {
-    // (1) if board is locked, becaused cards haven't flipped back yet, flipcard function cannot be executed (code ends with return)
+    // (1) if board is locked, because cards haven't flipped back yet, flipcard function cannot be executed (code ends with return)
     if (lockBoard) return;
 
     // (2) if the first card was already clicked, it would be a double click
@@ -112,7 +112,7 @@ function resetBoard() {
 // Shuffle with reset button
 function shuffle() {
     cards.forEach(card => {
-        let randomPos = Math.floor(Math.random() * 24);
+        let randomPos = Math.floor(Math.random() * 30);
         card.style.order = randomPos;
     });
 };
@@ -208,6 +208,8 @@ function submit_entry() {
             "content-type": "application/json"
         })
     });
+
+    resetTimer();
 }
 
 
