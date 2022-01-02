@@ -5,6 +5,7 @@ import os
 
 app = Flask(__name__)
 
+
 # Database
 app.config['MONGO_URI'] = os.environ.get("mongo-scores")
 mongo = PyMongo(app)
