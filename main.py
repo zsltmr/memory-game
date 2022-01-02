@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, request, jsonify, make_response
+from flask import Flask, render_template, request, url_for
 from flask_pymongo import PyMongo
 from datetime import datetime
 import os
@@ -40,4 +40,4 @@ def show_board():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8080)
